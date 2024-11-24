@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/scripts.js" defer></script>
+</head>
+
+<body>
+    <h1>Sudoku</h1>
+    <button id="generate-btn">Generate</button>
+    <button 
+        type="button" 
+        onclick="location.href=window.location.pathname + '/reset'">
+        Reset
+    </button>
+
+    <h2>Select Sudoku Difficulty</h2>
+    <div class="difficulty-buttons">
+        <form action="/easy" method="GET">
+            <button type="submit" style="color: green;">Easy</button>
+        </form>
+        <form action="/medium" method="GET">
+            <button type="submit" style="color: blue;">Medium</button>
+        </form>
+        <form action="/hard" method="GET">
+            <button type="submit" style="color: red;">Hard</button>
+        </form>
+    </div>
+
+    <form id="sudoku-form" onsubmit="submitSudoku(event)">
+        <table>
+            {{range $r, $row := .Board}}
+                <tr>
+                    {{range $c, $cell := $row}}
+                        <td 
+                            style="
+                                border-top: {{if eq (mod $r 3) 0}}2px solid black{{else}}1px solid gray{{end}};
+                                border-left: {{if eq (mod $c 3) 0}}2px solid black{{else}}1px solid gray{{end}};
+                                {{if eq $r 8}}border-bottom: 2px solid black;{{end}} 
+                                {{if eq $c 8}}border-right: 2px solid black;{{end}};
+                            "
+                        >
+                            <input 
+                                type="button"
+                                onclick="{{if isClue $r $c $.Clues}}{{else}}showNumberPicker(event, {{$r}}, {{$c}}){{end}}" 
+                                name="cell-{{$r}}-{{$c}}" 
+                                value="{{if ne $cell 0}}{{$cell}}{{end}}" 
+                                class="{{if isClue $r $c $.Clues}}clue{{else}}editable{{end}}" 
+                                {{if isClue $r $c $.Clues}}readonly{{end}}
+                            >
+                        </td>
+                    {{end}}
+                </tr>
+            {{end}}
+        </table>
+        <button type="submit" style="color: black;">Check</button>
+    </form>
+
+    <!-- Message display -->
+    <div id="message"></div>
+</body>
+</html>

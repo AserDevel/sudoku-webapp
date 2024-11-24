@@ -1,0 +1,107 @@
+table {
+    margin: 20px auto;
+    padding: 1px;
+    border: 2px solid black
+}
+input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 16px;
+    border: none;
+}
+td {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid gray;
+}
+.top-border {
+    border-top: 2px solid black;
+}
+.left-border {
+    border-left: 2px solid black;
+}
+.bottom-border {
+    border-bottom: 2px solid black;
+}
+.right-border {
+    border-right: 2px solid black;
+}
+.clue {
+    background-color: #f0f0f0; /* Light gray background for clues */
+    color: #000; /* Black text */
+    font-weight: bold;
+    cursor: not-allowed; /* Indicate non-editable fields */
+}
+.editable {
+    background-color: #fff; /* White background for editable cells */
+    color: #000;
+    font-weight: bold;
+}
+.editable:hover {
+    background-color: #e0e0ff; /* Highlight editable cells on hover */
+}
+input[readonly] {
+    pointer-events: none; /* Prevent interaction with readonly inputs */
+}
+.number-picker {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(3, 40px);
+    gap: 5px;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.number-picker button {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;            /* Enable flexbox */
+    align-items: center;      
+    justify-content: center;  
+    cursor: pointer;
+    text-align: center;       
+}
+.number-picker button:hover {
+    background-color: #f0f0f0;
+}
+.number-picker button:nth-child(10) { /* Erase button style */
+    background-color: #f8d7da;
+    color: #721c24;
+    font-weight: bold;
+}
+.number-picker button:nth-child(10):hover {
+    background-color: #f5c6cb;
+}
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+}
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #333;
+    background-color: #f4f4f4;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+button:hover {
+    background-color: #ddd;
+}
+button:active {
+    transform: scale(0.95);
+}
