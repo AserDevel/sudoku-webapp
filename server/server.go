@@ -38,7 +38,7 @@ func StartServer() {
 	})
 
 	log.Fatal(http.ListenAndServe("0.0.0.0:8080", nil)) // Lan server
-	//log.Fatal(http.ListenAndServe(":8000", nil)) // Local host
+	//log.Fatal(http.ListenAndServe(":8080", nil)) // Local host
 }
 
 func easyHandler(w http.ResponseWriter, r *http.Request) {
