@@ -34,10 +34,10 @@
                     {{range $c, $cell := $row}}
                         <td 
                             style="
-                                border-top: {{if eq (mod $r 3) 0}}2px solid black{{else}}1px solid gray{{end}};
-                                border-left: {{if eq (mod $c 3) 0}}2px solid black{{else}}1px solid gray{{end}};
-                                {{if eq $r 8}}border-bottom: 2px solid black;{{end}} 
-                                {{if eq $c 8}}border-right: 2px solid black;{{end}};
+                                border-top: {{if eq (mod $r 3) 0}}3px solid rgb(100, 56, 2){{else}}1px solid gray{{end}};
+                                border-left: {{if eq (mod $c 3) 0}}3px solid rgb(100, 56, 2){{else}}1px solid gray{{end}};
+                                {{if eq $r 8}}border-bottom: 3px solid rgb(100, 56, 2){{end}}; 
+                                {{if eq $c 8}}border-right: 3px solid rgb(100, 56, 2){{end}};
                             "
                         >
                             <input 
@@ -59,4 +59,5 @@
     <!-- Message display -->
     <div id="message"></div>
 </body>
+
 </html>
