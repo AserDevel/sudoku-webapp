@@ -57,10 +57,8 @@ func makeHandler(diff string) http.HandlerFunc {
 			http.Redirect(w, r, "/"+diff, http.StatusFound)
 		case "check":
 			checkResponse(w, sudokuBoards[diff].IsSolved())
-			http.Redirect(w, r, "/"+diff, http.StatusFound)
 		case "insert":
 			insertRequest(w, r, sudokuBoards[diff])
-			http.Redirect(w, r, "/"+diff, http.StatusFound)
 		default:
 			renderTemplate(w, sudokuBoards[diff])
 		}
