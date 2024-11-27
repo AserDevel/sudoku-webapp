@@ -15,37 +15,28 @@ type Clue struct {
 type Sudoku struct {
 	Board [9][9]int
 	Clues []Clue
-	Diff  Difficulty
 }
 
-type Difficulty int
-
-const (
-	Easy   Difficulty = 0
-	Medium Difficulty = 1
-	Hard   Difficulty = 2
-)
-
 // Generates a random sudoku
-func GenerateSudoku(diff Difficulty) Sudoku {
-	sudoku := Sudoku{Diff: diff}
-	sudoku.fill()
+func GenerateSudoku(diff string) Sudoku {
+	sudoku := Sudoku{}
+	sudoku.Solve()
 
 	switch diff {
-	case Easy:
+	case "easy":
 		for !sudoku.removeCells(35) {
-			sudoku = Sudoku{Diff: Easy}
-			sudoku.fill()
+			sudoku = Sudoku{}
+			sudoku.Solve()
 		}
-	case Medium:
+	case "medium":
 		for !sudoku.removeCells(45) {
-			sudoku = Sudoku{Diff: Medium}
-			sudoku.fill()
+			sudoku = Sudoku{}
+			sudoku.Solve()
 		}
-	case Hard:
+	case "hard":
 		for !sudoku.removeCells(55) {
-			sudoku = Sudoku{Diff: Hard}
-			sudoku.fill()
+			sudoku = Sudoku{}
+			sudoku.Solve()
 		}
 	}
 
@@ -63,10 +54,6 @@ func GenerateSudoku(diff Difficulty) Sudoku {
 	}
 
 	return sudoku
-}
-
-func (sudoku *Sudoku) Solve() {
-	sudoku.fill()
 }
 
 // Attempts to insert num at (r, c) returns true if successful
@@ -131,17 +118,9 @@ func (sudoku *Sudoku) Print() {
 	fmt.Printf("\n%v\n", line)
 }
 
-// Boundary checker
-func inRange(n, min, max int) bool {
-	if n < min || n > max {
-		return false
-	}
-	return true
-}
-
-// Fills the sudoku with valid numbers in random order
-// Used for generating and solving puzzles
-func (sudoku *Sudoku) fill() {
+// Fills the sudoku with valid numbers in a random order
+// The function is also used to generate random sudokus
+func (sudoku *Sudoku) Solve() {
 	var dfs func(r, c int) bool
 
 	dfs = func(r, c int) bool {
@@ -168,6 +147,14 @@ func (sudoku *Sudoku) fill() {
 	}
 
 	dfs(0, 0)
+}
+
+// Boundary checker
+func inRange(n, min, max int) bool {
+	if n < min || n > max {
+		return false
+	}
+	return true
 }
 
 // Randomly removes the given amount of cells from the sudoku,

@@ -27,7 +27,7 @@
         </form>
     </div>
 
-    <form id="sudoku-form" onsubmit="submitSudoku(event)">
+    <form id="sudoku-form" onsubmit="checkSudoku(event)">
         <table>
             {{range $r, $row := .Board}}
                 <tr>
@@ -56,7 +56,6 @@
         <button type="submit" style="color: black;">Check</button>
     </form>
 
-    <!-- Message display -->
     <div id="message"></div>
 </body>
 

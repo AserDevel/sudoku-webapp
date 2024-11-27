@@ -1,3 +1,10 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+}
+
+/* Table style */
 table {
     margin: 20px auto;
     padding: 1px;
@@ -34,6 +41,8 @@ td {
 input[readonly] {
     pointer-events: none; /* Prevent interaction with readonly inputs */
 }
+
+/* number picker style */
 .number-picker {
     position: absolute;
     display: grid;
@@ -51,14 +60,14 @@ input[readonly] {
     height: 40px;
     font-size: 16px;
     font-weight: bold;
-    display: flex;            /* Enable flexbox */
+    display: flex;            
     align-items: center;      
     justify-content: center;  
     cursor: pointer;
     text-align: center;       
 }
 .number-picker button:hover {
-    background-color: #f0f0f0;
+    background-color: #e7e7e7;
 }
 .number-picker button:nth-child(10) { /* Erase button style */
     background-color: #f8d7da;
@@ -68,11 +77,8 @@ input[readonly] {
 .number-picker button:nth-child(10):hover {
     background-color: #f5c6cb;
 }
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 50px;
-}
+
+/* Button style */
 .difficulty-buttons {
     display: flex;
     justify-content: center;

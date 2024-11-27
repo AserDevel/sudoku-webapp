@@ -8,7 +8,7 @@ func TestValidation(t *testing.T) {
 		sudoku.Print()
 		t.Fatalf("Expected valid to be false, but returned true")
 	}
-	sudoku = GenerateSudoku(Hard)
+	sudoku = GenerateSudoku("hard")
 	if !valid(sudoku) {
 		sudoku.Print()
 		t.Fatalf("Expected valid to be true, but returned false")
@@ -26,21 +26,21 @@ func TestGeneration(t *testing.T) {
 	// Test easy
 	count := 81 - 35
 	for i := 0; i < 15; i++ {
-		sudoku = GenerateSudoku(Easy)
+		sudoku = GenerateSudoku("easy")
 		testGenerationHelper(sudoku, count, t)
 	}
 
 	// Test medium
 	count = 81 - 45
 	for i := 0; i < 15; i++ {
-		sudoku = GenerateSudoku(Medium)
+		sudoku = GenerateSudoku("medium")
 		testGenerationHelper(sudoku, count, t)
 	}
 
 	// Test hard
 	count = 81 - 55
 	for i := 0; i < 15; i++ {
-		sudoku = GenerateSudoku(Hard)
+		sudoku = GenerateSudoku("hard")
 		testGenerationHelper(sudoku, count, t)
 	}
 }
@@ -58,7 +58,7 @@ func testGenerationHelper(sudoku Sudoku, count int, t *testing.T) {
 
 func TestSolving(t *testing.T) {
 	for i := 0; i < 15; i++ {
-		sudoku := GenerateSudoku(Hard)
+		sudoku := GenerateSudoku("hard")
 		if sudoku.IsSolved() {
 			sudoku.Print()
 			t.Fatalf("IsSolved was true, but expected it to be false")

@@ -1,6 +1,5 @@
 // Variable to keep track of the currently open popup
 let currentPopup = null;
-let points = 0
 
 // Function to show the number picker
 function showNumberPicker(event, row, col) {
@@ -14,14 +13,14 @@ function showNumberPicker(event, row, col) {
     }
 
     // Create the popup
-    const popup = document.createElement('div');
-    popup.classList.add('number-picker');
+    const popup = document.createElement("div");
+    popup.classList.add("number-picker");
     popup.style.top = `${event.clientY}px`;
     popup.style.left = `${event.clientX}px`;
 
     // Add numbers 1-9 to the popup
     for (let i = 1; i <= 9; i++) {
-        const btn = document.createElement('button');
+        const btn = document.createElement("button");
         btn.innerText = i;
         btn.onclick = function () {
             // Set the input value when a number is selected
@@ -38,7 +37,7 @@ function showNumberPicker(event, row, col) {
     }
 
     // Add the "Erase" button
-    const eraseBtn = document.createElement('button');
+    const eraseBtn = document.createElement("button");
     eraseBtn.innerText = "X";
     eraseBtn.style.gridColumn = "span 3"; // Make it span across all columns
     eraseBtn.onclick = function () {
@@ -61,7 +60,7 @@ function showNumberPicker(event, row, col) {
 }
 
 // Close popups when clicking elsewhere
-document.addEventListener('click', function () {
+document.addEventListener("click", function () {
     if (currentPopup) {
         document.body.removeChild(currentPopup);
         currentPopup = null;
@@ -70,81 +69,53 @@ document.addEventListener('click', function () {
 
 // Function to send updated cell data to the server
 async function sendToServer(row, col, value) {
-    // Determine the current difficulty level from the URL path
-    const path = window.location.pathname;
-    const difficulty = path.split('/')[1]; // Get the first part of the URL path
-
-    // Ensure valid difficulty level is passed
-    if (!['easy', 'medium', 'hard'].includes(difficulty)) {
-        console.error('Invalid difficulty level');
-        return;
-    }
-
     try {
-        const response = await fetch('/update-sudoku', {
-            method: 'POST',
+        const response = await fetch(window.location.pathname + "insert", {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                difficulty: difficulty, // Add the difficulty level to the payload
-                row: row,
-                col: col,
-                value: value, // Send the selected number (or 0 for erase)
-            }),
+            body: JSON.stringify({row, col, value}),
         });
 
         if (response.ok) {
             const result = await response.json();
-            console.log('Server Response:', result);
+            console.log("Server Response:", result);
         } else {
-            console.error('Error saving data to the server');
+            console.error("Error saving data to the server");
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
     }
 }
 
 // Submits the current sudoku and checks if it's correct
-async function submitSudoku(event) {
+async function checkSudoku(event) {
     event.preventDefault(); // Prevent traditional form submission
-
-    const path = window.location.pathname;
-    const difficulty = path.split('/')[1]; // Get the first part of the URL path
-
-    // Ensure valid difficulty level is passed
-    if (!['easy', 'medium', 'hard'].includes(difficulty)) {
-        console.error('Invalid difficulty level');
-        return;
-    }
-
-    // Send the JSON with the difficulty, and await response
     try {
-        const response = await fetch('/check-sudoku', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ difficulty }), // Send the difficulty only
-        });
+        // Fetch the response from the given URL
+        const response = await fetch(window.location.pathname + "check");
 
+        // Check if the response is OK (status code is 200-299)
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
-        const result = await response.json();
+        
+        const result = await response.json()
 
         // Display the result message
-        const messageDiv = document.getElementById('message');
+        const messageDiv = document.getElementById("message");
         messageDiv.innerText = result.message;
-        messageDiv.style.color = result.correct ? 'green' : 'red';
+        messageDiv.style.color = result.correct ? "green" : "red";
     } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
     }
 }
 
-document.getElementById('generate-btn').addEventListener('click', () => {
-    const btn = document.getElementById('generate-btn');
+document.getElementById("generate-btn").addEventListener("click", () => {
+    const btn = document.getElementById("generate-btn");
     btn.disabled = true; // Disable the button
-    btn.innerText = 'Generating...'; // Change the text
+    btn.innerText = "Generating...";
 
     // Reload the page
     const currentPath = window.location.pathname;
